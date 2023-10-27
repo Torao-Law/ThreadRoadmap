@@ -4,7 +4,7 @@ import FormThread from '@/features/thread/components/FormThread';
 import { useThreads } from '@/features/thread/hooks/useThreads';
 
 export default function Home() {
-  const { getThreads } = useThreads()
+  const { threads } = useThreads()
 
   return (
     <Box display={"flex"} justifyContent={"center"}>
@@ -21,7 +21,7 @@ export default function Home() {
         <FormThread />
 
         <Box>
-        { getThreads?.map((item: any) => {
+        { threads?.map((item: any) => {
             return (
               <Box key={item.id}>
                 <ThreadCard

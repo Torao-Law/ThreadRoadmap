@@ -30,7 +30,7 @@ export default new class AuthService {
       const user = this.AuthRepository.create({
         full_name: value.full_name,
         username: value.username,
-        email: value.username,
+        email: value.email,
         password: hashPassword
       })
 

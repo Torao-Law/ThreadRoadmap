@@ -2,8 +2,7 @@ import { IUser } from "./User";
 
 export type IThreadPost = {
   content: string;
-  image?: string;
-  user: number;
+  image: Blob | MediaSource | string;
 }
 
 export type IThreadCard = {

@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
+import { v2 as cloudinary } from "cloudinary"
+import { Thread } from "../entities/Threads";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
-import { Thread } from "../entities/Threads";
+import { Request, Response } from "express";
 import { createThreadSchema, updateThreadSchema } from "../utils/validators/Thread";
 
 class ThreadsService {
@@ -51,21 +52,47 @@ class ThreadsService {
 
   async create(req: Request, res: Response) {
     try {
-      const data = req.body;
+      const image = res.locals.filename;
 
-      const { error } = createThreadSchema.validate(data)
+      const data = {
+        content: req.body.content,
+        image,
+      };
+
+      const loginSession = res.locals.loginSession;
+
+      const { error } = createThreadSchema.validate(data);
 
       if (error) {
         return res.status(400).json({
-          error: error
-        })
+          error: error,
+        });
       }
+
+      console.log(data);
+      
+
+      cloudinary.config({
+        cloud_name: "dje5tgwuj",
+        api_key: "451686618445968",
+        api_secret: "ik0zVU-GMVEXJI--0QK16fqU23M",
+      });
+
+      const cloudinaryResponse = await cloudinary.uploader.upload(
+        "src/uploads/" + image,
+        { folder: "waysbeans-app"}
+      );
+
+      console.log("cloudinary response", cloudinaryResponse);
+      
 
       // create object biar typenya sesuai
       const thread = this.threadRepository.create({
         content: data.content,
-        image: data.image,
-        user: data.user
+        image: cloudinaryResponse.secure_url,
+        user: {
+          id: loginSession.user.id
+        }
       });
 
       // insertion ke database
