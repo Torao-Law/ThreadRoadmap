@@ -11,7 +11,7 @@ class ThreadsService {
   async find(req: Request, res: Response) {
     try {
       const threads = await this.threadRepository.find({
-        relations: ["user"],
+        relations: ["users"],
         order: {
           id: "DESC"
         }
@@ -26,6 +26,8 @@ class ThreadsService {
           replies_cout: Math.floor(Math.random() * 100)
         });
       });
+
+      console.log(threads)
 
       return res.status(200).json(responseBaru);
     } catch (err) {
@@ -65,7 +67,7 @@ class ThreadsService {
       const thread = this.threadRepository.create({
         content: data.content,
         image: data.image,
-        user: data.user
+        users: data.user
       });
 
       // insertion ke database

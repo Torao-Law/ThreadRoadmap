@@ -12,7 +12,7 @@ export function useThreads() {
   });
   
   const { data: getThreads, refetch } = useQuery<IThreadCard[]>({
-    queryKey: ['thread'],
+    queryKey: ['threads'],
     queryFn: async () => await API.get('/threads')
       .then((res) => res.data)
   });

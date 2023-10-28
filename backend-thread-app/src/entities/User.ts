@@ -24,7 +24,7 @@ export class User {
   @Column({ nullable: true })
   description: string;
 
-  @OneToMany(() => Thread, (thread) => thread.user, {
+  @OneToMany(() => Thread, (thread) => thread.users, {
     onUpdate: "CASCADE",
     onDelete: "CASCADE"
   })

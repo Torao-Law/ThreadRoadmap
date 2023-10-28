@@ -6,6 +6,9 @@ import { useThreads } from '@/features/thread/hooks/useThreads';
 export default function Home() {
   const { getThreads } = useThreads()
 
+  console.log(getThreads);
+  
+
   return (
     <Box display={"flex"} justifyContent={"center"}>
       <Box
@@ -25,7 +28,7 @@ export default function Home() {
             return (
               <Box key={item.id}>
                 <ThreadCard
-                  user={item.user}
+                  user={item.users}
                   content={item.content}
                   likes_count={item.likes_count}
                   posted_at={item.posted_at}

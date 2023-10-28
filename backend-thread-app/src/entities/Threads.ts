@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
 import { User } from "./User"
 
-@Entity({ name: "thread" })
+@Entity({ name: "threads" })
 export class Thread {
     @PrimaryGeneratedColumn()
     id: number 
@@ -19,5 +19,5 @@ export class Thread {
         onDelete: "CASCADE",
         onUpdate: "CASCADE"
     })
-    user: User
+    users: User
 }
